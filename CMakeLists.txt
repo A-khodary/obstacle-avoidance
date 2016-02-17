@@ -53,7 +53,8 @@ add_executable(objectDetectionTrainer src/main/ObjectDetectionTrainer.cpp)
 add_executable(objectDetectionModelGenerator src/main/ObjectDetectionModelGenerator.cpp)
 target_link_libraries(objectDetectionTrainer dlib)
 
-
+add_executable(cameraServer src/main/CameraEnclosureServer.cpp)
+target_link_libraries(cameraServer obstdetect_full test_core)
 
 
 #########
@@ -94,3 +95,7 @@ target_link_libraries(fsStreamTest obstdetect_core test_core)
 # ImageServerTest - streaming images from file system
 add_executable(imageServerTest test/main/ImageServerTest.cpp)
 target_link_libraries(imageServerTest obstdetect_core test_core)
+
+# LeptonServerTest - streaming images from Lepton on another device
+add_executable(leptonServerTest test/main/LeptonServerTest.cpp)
+target_link_libraries(leptonServerTest obstdetect_core)
