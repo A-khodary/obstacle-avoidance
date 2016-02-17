@@ -50,7 +50,9 @@ public:
      *  and sends it off via unique_ptr to communicate to the receiver
      *  that they should take care of memory from there on out.
      */
-    void getFrame(Image16bit &frame);
+
+
+    void captureFrame(uint16_t *frame);
 
     /**
      * Perform Flat Field Correction, recalibrating the Lepton's sensor array
@@ -59,25 +61,9 @@ public:
     void performFFC();
 
 private:
-
-    std::thread _leptonThread;
-
     uint8_t _result[PACKET_SIZE*PACKETS_PER_FRAME];
+
     uint16_t *_frameBuffer;
-
-    uint16_t* _latestFrame;
-
-    volatile bool _canOverwriteLatestFrame;
-    volatile bool _newFrameAvailable;
-
-    /* Provides a lock to make sure that only one thread at a time can check and
-     *  modify the _canOverwriteLatestFrame variable. */
-    std::mutex _mtx;
-    std::condition_variable _cv;
-
-    void startCapture();
-    void captureFrame();
-
 };
 
 static void pabort(const char *s)
